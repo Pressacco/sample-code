@@ -1,5 +1,5 @@
 # FlaUI : Issue #521
 
-Focus() does not bring Window to foreground when testing with "MS Test", but works as standalone application.
+This sample code was written to reproduce the behavior outlined by:
 
 - https://github.com/FlaUI/FlaUI/issues/521
