@@ -1,4 +1,10 @@
+using System.Windows.Forms;
 using FlaUI.Core.AutomationElements;
+
+using System.Xml.Linq;
+using FlaUI.Core;
+using FlaUI.Core.Patterns;
+using DataGridView = FlaUI.Core.AutomationElements.DataGridView;
 
 namespace DemoAppTests;
 
@@ -10,6 +16,8 @@ internal class Context : IDisposable
 
     internal Grid? DataGrid { get; set; }
     internal DataGridView? GridView { get; set; }
+
+    internal IAutomationPattern<ITablePattern> GridTable{ get; set; }
 
     internal int GridCount { get; set; }
     internal int GridViewCount { get; set; }
@@ -23,6 +31,7 @@ internal class Context : IDisposable
         Element = DemoApp.GetAutomationElement(dataGridAid);
         DataGrid = Element.AsGrid();
         GridView = Element.AsDataGridView(); // only has access to "virtualized data"
+        GridTable = DataGrid.Patterns.Table;
 
         GridCount = DataGrid.RowCount;
         LastIndex = GridCount - 1;

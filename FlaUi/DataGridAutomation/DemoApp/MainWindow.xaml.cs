@@ -11,31 +11,43 @@
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        private ObservableCollection<Widget> _widgets;
+        private ObservableCollection<Widget> _realWidgets;
+        private ObservableCollection<Widget> _virtualWidgets;
 
         public MainWindow()
         {
-            this.Widgets = GetWidgets(512);
+            this.RealWidgets = GetWidgets(512, "RealWidgets");
+            this.RealWidgets = GetWidgets(512, "VirtualWidgets");
             InitializeComponent();
         }
 
-        public ObservableCollection<Widget> Widgets
+        public ObservableCollection<Widget> RealWidgets
         {
-            get => _widgets;
+            get => _realWidgets;
             set
             {
-                _widgets = value;
+                _realWidgets = value;
                 OnPropertyChanged();
             }
         }
 
-        private static ObservableCollection<Widget> GetWidgets(int count)
+        public ObservableCollection<Widget> VirtualWidgets
+        {
+            get => _virtualWidgets;
+            set
+            {
+                _virtualWidgets = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private static ObservableCollection<Widget> GetWidgets(int count, string name)
         {
             var widgets = new List<Widget>(count);
 
             for (var i = 0; i < count; i++)
             {
-                widgets.Add(new Widget($"Widget-{i:000}"));
+                widgets.Add(new Widget($"{name}-{i:000}"));
             }
 
             return new ObservableCollection<Widget>(widgets);

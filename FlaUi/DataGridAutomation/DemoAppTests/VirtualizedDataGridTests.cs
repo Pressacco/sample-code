@@ -40,6 +40,31 @@
             }
         }
 
+        [TestMethod]
+        public void GridRowValueWorks()
+        {
+            var lastName = string.Empty;
+
+            using (var context = new Context(new DemoAppWrapper(), Constants.VirtualizedDataGridAid))
+            {
+                try
+                {
+                    var gridRow = context.DataGrid.Select(context.LastIndex);
+                    gridRow.ScrollIntoView();
+
+                    lastName = gridRow.Cells[0].Value;
+
+                    Assert.AreEqual(
+                        "VirtualWidgets-511",
+                        lastName);
+                }
+                finally
+                {
+                    WriteDetails(context, lastName);
+                }
+            }
+        }
+
         private void WriteDetails(Context context, string lastName)
         {
             this.TestContext.WriteLine("GridCount={0}, GridViewCount={1}, LastIndex={2}, LastName={3}",

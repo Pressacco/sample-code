@@ -10,27 +10,34 @@
         d:DataContext="{d:DesignInstance Type=local:MainWindow, IsDesignTimeCreatable=True}">
     <Grid Width="Auto" Height="Auto">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <!--Reuse the item containers.-->
-        <DataGrid Grid.Row="0" Grid.Column="0" BorderBrush="Red" BorderThickness="4"
-                  AutomationProperties.AutomationId="RecycledDataGrid"
-                  ItemsSource="{Binding Widgets}"
-                  AutoGenerateColumns="False"
-                  IsReadOnly="True"
-                  VirtualizingStackPanel.VirtualizationMode="Recycling">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Key" Binding="{Binding Key}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <TextBlock Grid.Row="0">Standard: Virtualization is OFF</TextBlock>
         <!--Create and discard the item containers.-->
-        <DataGrid Grid.Row="1" Grid.Column="0" BorderBrush="MediumSpringGreen" BorderThickness="4"
+        <!--<DataGrid Grid.Row="1"  BorderBrush="MediumSpringGreen" BorderThickness="4"
                   AutomationProperties.AutomationId="StandardDataGrid"
                   ItemsSource="{Binding Widgets}"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   VirtualizingStackPanel.VirtualizationMode="Standard">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Key" Binding="{Binding Key}"/>
+            </DataGrid.Columns>
+        </DataGrid>-->
+        <TextBlock Grid.Row="2">Recylcing: Virtualization is ON</TextBlock>
+        <!--
+        Reuse the item containers.
+        
+        VirtualizingStackPanel.VirtualizationMode defaults to "Recycling" when not specified.
+        -->
+        <DataGrid Grid.Row="3"  BorderBrush="Red" BorderThickness="4"
+                  AutomationProperties.AutomationId="RecycledDataGrid"
+                  ItemsSource="{Binding RealWidgets}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Key" Binding="{Binding Key}"/>
             </DataGrid.Columns>
