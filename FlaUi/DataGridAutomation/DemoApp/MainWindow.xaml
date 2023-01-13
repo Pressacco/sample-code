@@ -9,12 +9,28 @@
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         d:DataContext="{d:DesignInstance Type=local:MainWindow, IsDesignTimeCreatable=True}">
     <Grid Width="Auto" Height="Auto">
-        <!--AutomationProperties.AutomationId="DataGridAid"-->
-        <DataGrid Grid.Row="0" Grid.Column="0" 
-                  AutomationProperties.AutomationId="DataGridAid"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!--Reuse the item containers.-->
+        <DataGrid Grid.Row="0" Grid.Column="0" BorderBrush="Red" BorderThickness="4"
+                  AutomationProperties.AutomationId="RecycledDataGrid"
                   ItemsSource="{Binding Widgets}"
                   AutoGenerateColumns="False"
-                  IsReadOnly="True">
+                  IsReadOnly="True"
+                  VirtualizingStackPanel.VirtualizationMode="Recycling">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Key" Binding="{Binding Key}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <!--Create and discard the item containers.-->
+        <DataGrid Grid.Row="1" Grid.Column="0" BorderBrush="MediumSpringGreen" BorderThickness="4"
+                  AutomationProperties.AutomationId="StandardDataGrid"
+                  ItemsSource="{Binding Widgets}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  VirtualizingStackPanel.VirtualizationMode="Standard">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Key" Binding="{Binding Key}"/>
             </DataGrid.Columns>

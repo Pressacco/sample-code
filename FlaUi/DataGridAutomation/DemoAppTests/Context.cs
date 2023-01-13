@@ -5,6 +5,7 @@ namespace DemoAppTests;
 internal class Context : IDisposable
 {
     internal DemoAppWrapper DemoApp { get; }
+    public string DataGridAid { get; }
     internal AutomationElement? Element { get; set; }
 
     internal Grid? DataGrid { get; set; }
@@ -14,11 +15,12 @@ internal class Context : IDisposable
     internal int GridViewCount { get; set; }
     internal int LastIndex { get; set; }
 
-    public Context(DemoAppWrapper demoAppWrapper)
+    public Context(DemoAppWrapper demoAppWrapper, string dataGridAid)
     {
         DemoApp = demoAppWrapper;
+        DataGridAid = dataGridAid;
 
-        Element = DemoApp.GetAutomationElement("DataGridAid");
+        Element = DemoApp.GetAutomationElement(dataGridAid);
         DataGrid = Element.AsGrid();
         GridView = Element.AsDataGridView(); // only has access to "virtualized data"
 
@@ -30,6 +32,9 @@ internal class Context : IDisposable
 
     public void Dispose()
     {
+        // giver tester a chance to see the results
+        Thread.Sleep(TimeSpan.FromSeconds(4));
+
         GridView = null;
         DataGrid = null;
         Element = null;
