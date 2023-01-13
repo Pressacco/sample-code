@@ -13,11 +13,14 @@
     {
         private ObservableCollection<Widget> _realWidgets;
         private ObservableCollection<Widget> _virtualWidgets;
+        private ObservableCollection<Widget> _templateWidgets;
 
         public MainWindow()
         {
             this.RealWidgets = GetWidgets(512, "RealWidgets");
-            this.RealWidgets = GetWidgets(512, "VirtualWidgets");
+            this.VirtualWidgets = GetWidgets(512, "VirtualWidgets");
+            this.TemplateWidgets = GetWidgets(512, "TemplateWidgets");
+
             InitializeComponent();
         }
 
@@ -37,6 +40,16 @@
             set
             {
                 _virtualWidgets = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<Widget> TemplateWidgets
+        {
+            get => _templateWidgets;
+            set
+            {
+                _templateWidgets = value;
                 OnPropertyChanged();
             }
         }

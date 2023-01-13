@@ -1,5 +1,10 @@
 ﻿namespace DemoAppTests
 {
+    using FlaUI.Core;
+    using FlaUI.Core.Conditions;
+    using FlaUI.Core.Definitions;
+    using FlaUI.UIA3;
+
     [TestClass]
     public class VirtualizedDataGridTests
     {
@@ -56,6 +61,41 @@
 
                     Assert.AreEqual(
                         "VirtualWidgets-511",
+                        lastName);
+                }
+                finally
+                {
+                    WriteDetails(context, lastName);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void TemplateColumnWorks()
+        {
+            var lastName = string.Empty;
+
+            var conditionFactory = new ConditionFactory(new UIA3PropertyLibrary());
+
+            using (var context = new Context(new DemoAppWrapper(), Constants.TemplateDataGridAid))
+            {
+                try
+                {
+                    var gridRow = context.DataGrid.Select(context.LastIndex);
+
+                    // It appears that `DataGrid.Select()` performs a `ScrollIntoView()`
+                    // gridRow.ScrollIntoView();
+
+                    var textBlock = gridRow.Cells[0].FindFirst(
+                        TreeScope.Descendants,
+                        conditionFactory
+                            .ByFrameworkType(FrameworkType.Wpf)
+                            .And(conditionFactory.ByAutomationId("NestedTextBlock")));
+
+                    lastName = textBlock.Name;
+
+                    Assert.AreEqual(
+                        "TemplateWidgets-511",
                         lastName);
                 }
                 finally

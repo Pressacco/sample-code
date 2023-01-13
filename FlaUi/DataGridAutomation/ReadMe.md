@@ -1,7 +1,14 @@
 # Read Me
 
-## Intent
+The intent of this project is to have a sandbox application that can be used to discuss:
 
-Trying to answer the question:
+- > How do you reliably query a WPF `DataGrid` when virtualization has been enabled 
+(which is the default setting)?
 
-- > How do you reliably query a WPF `DataGrid` when virtualization has been enabled (which is the default setting)?
+## Solution
+
+It appears that the problem can be addressed by using:
+
+- `VirtualizedDataGridTests`
+    - `TemplateColumnWorks()`
+

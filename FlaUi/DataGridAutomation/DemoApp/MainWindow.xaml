@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DemoApp"
         mc:Ignorable="d"
-        Title="DemoApp" Height="450" Width="800"
+        Title="DemoApp" Height="800" Width="200"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         d:DataContext="{d:DesignInstance Type=local:MainWindow, IsDesignTimeCreatable=True}">
     <Grid Width="Auto" Height="Auto">
@@ -14,32 +14,54 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0">Standard: Virtualization is OFF</TextBlock>
         <!--Create and discard the item containers.-->
-        <!--<DataGrid Grid.Row="1"  BorderBrush="MediumSpringGreen" BorderThickness="4"
+        <DataGrid Grid.Row="1"  BorderBrush="MediumSpringGreen" BorderThickness="4"
                   AutomationProperties.AutomationId="StandardDataGrid"
-                  ItemsSource="{Binding Widgets}"
+                  ItemsSource="{Binding RealWidgets}"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   VirtualizingStackPanel.VirtualizationMode="Standard">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Key" Binding="{Binding Key}"/>
             </DataGrid.Columns>
-        </DataGrid>-->
-        <TextBlock Grid.Row="2">Recylcing: Virtualization is ON</TextBlock>
+        </DataGrid>
+        <TextBlock Grid.Row="2">Recycling: Virtualization is ON</TextBlock>
         <!--
         Reuse the item containers.
         
-        VirtualizingStackPanel.VirtualizationMode defaults to "Recycling" when not specified.
+        VirtualizationMode defaults to "Recycling" when not specified.
         -->
         <DataGrid Grid.Row="3"  BorderBrush="Red" BorderThickness="4"
-                  AutomationProperties.AutomationId="RecycledDataGrid"
-                  ItemsSource="{Binding RealWidgets}"
+                  AutomationProperties.AutomationId="VirtualDataGrid"
+                  ItemsSource="{Binding VirtualWidgets}"
                   AutoGenerateColumns="False"
-                  IsReadOnly="True">
+                  IsReadOnly="True"
+                  VirtualizingStackPanel.VirtualizationMode="Recycling">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Key" Binding="{Binding Key}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock Grid.Row="4">Virtual+Template</TextBlock>
+        <DataGrid Grid.Row="5"  BorderBrush="Blue" BorderThickness="4"
+                  AutomationProperties.AutomationId="TemplateDataGrid"
+                  ItemsSource="{Binding TemplateWidgets}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  VirtualizingStackPanel.VirtualizationMode="Recycling">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn MinWidth="180" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock 
+                                AutomationProperties.AutomationId="NestedTextBlock"
+                                Text="{Binding Key}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

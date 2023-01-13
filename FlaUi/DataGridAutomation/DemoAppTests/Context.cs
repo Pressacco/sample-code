@@ -1,7 +1,5 @@
-using System.Windows.Forms;
 using FlaUI.Core.AutomationElements;
 
-using System.Xml.Linq;
 using FlaUI.Core;
 using FlaUI.Core.Patterns;
 using DataGridView = FlaUI.Core.AutomationElements.DataGridView;
